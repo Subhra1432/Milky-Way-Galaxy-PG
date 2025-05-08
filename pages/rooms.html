@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rooms - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Page Specific Styles */
+        .rooms-container {
+            padding: 4rem 0;
+        }
+
+        .room-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .room-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .room-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .room-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .room-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .room-card:hover .room-image img {
+            transform: scale(1.05);
+        }
+
+        .room-details {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .room-type {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .room-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #f0f5ff;
+            color: var(--primary-color);
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .room-price {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .room-price span {
+            font-size: 1rem;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .room-features {
+            margin-bottom: 1.5rem;
+        }
+
+        .room-features ul {
+            padding-left: 1.5rem;
+        }
+
+        .room-features ul li {
+            margin-bottom: 0.5rem;
+            list-style-type: disc;
+        }
+
+        .room-card .btn {
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: auto;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .room-card .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn.btn-primary {
+            background-color: #4285F4;
+            color: white;
+        }
+        
+        .btn.btn-primary:hover {
+            background-color: #3367d6;
+        }
+
+        .btn.disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .btn.disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        @media (max-width: 768px) {
+            .rooms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html" class="active">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <div class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/1600x900/?hostel,bedroom') !important; background-size: cover; background-position: center; height: 30vh; display: flex; justify-content: center; align-items: center; color: white; text-align: center;">
+        <div class="container">
+            <h1>Our Rooms</h1>
+            <p>Choose from a variety of comfortable accommodation options</p>
+        </div>
+    </div>
+
+    <section class="rooms-container">
+        <div class="container">
+            <div class="room-filters">
+                <button class="filter-btn active" data-filter="all">All Rooms</button>
+                <button class="filter-btn" data-filter="single">Single Sharing</button>
+                <button class="filter-btn" data-filter="double">Double Sharing</button>
+                <button class="filter-btn" data-filter="triple">Triple Sharing</button>
+                <button class="filter-btn" data-filter="quad">Quad Sharing</button>
+                <button class="filter-btn" data-filter="ac">AC Rooms</button>
+                <button class="filter-btn" data-filter="non-ac">Non-AC Rooms</button>
+            </div>
+
+            <div class="rooms-grid">
+                <!-- Single Room AC -->
+                <div class="room-card" data-category="single ac">
+                    <div class="room-image">
+                        <img src="https://img.staticmb.com/mbphoto/pg/grd2/cropped_images/2025/Jan/27/full_photo/GR2-480463-2377865.jpg" alt="Single Sharing AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Single Sharing AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Single Sharing</span>
+                            <span class="tag">AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹12,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Study Table & Chair</li>
+                                <li>Single Bed with Mattress</li>
+                                <li>Wardrobe</li>
+                                <li>Air Conditioner</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Single%20Sharing%20AC%20Room&category=Single%20Sharing%20AC&price=12000&image=https://source.unsplash.com/640x480/?bedroom,single" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Single Room Non-AC -->
+                <div class="room-card" data-category="single non-ac">
+                    <div class="room-image">
+                        <img src="https://apollo.olx.in/v1/files/nc0fy4sc6ksm-IN/image;s=780x0;q=60" alt="Single Sharing Non-AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Single Sharing Non-AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Single Sharing</span>
+                            <span class="tag">Non-AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹9,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Study Table & Chair</li>
+                                <li>Single Bed with Mattress</li>
+                                <li>Wardrobe</li>
+                                <li>Ceiling Fan</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Single%20Sharing%20Non-AC%20Room&category=Single%20Sharing%20Non-AC&price=9000&image=https://source.unsplash.com/640x480/?bedroom,simple" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Double Room AC -->
+                <div class="room-card" data-category="double ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/-fsYkQbD4Ar9vvMKjbQHkXQ6he4mIRBqIQG3KlegaL0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hbGV4/YW5kcm8uaW4vaW1h/Z2UvZGVsaGkvY292/aWUtZWFzdC1vZi1r/YWlsYXNoLTUyLzEu/anBn" alt="Double Sharing AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Double Sharing AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Double Sharing</span>
+                            <span class="tag">AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹9,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Two Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Air Conditioner</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Double%20Sharing%20AC%20Room&category=Double%20Sharing%20AC&price=9000&image=https://source.unsplash.com/640x480/?bedroom,double" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Double Room Non-AC -->
+                <div class="room-card" data-category="double non-ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/V7Z5Bcg3LOuhJ5HnzHD-bA341I53_Vie0d96-yG11Cc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hcG9s/bG8ub2x4LmluL3Yx/L2ZpbGVzL2d1anE4/bTRzcjl1YzItSU4v/aW1hZ2U7cz0yNzJ4/MA" alt="Double Sharing Non-AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Double Sharing Non-AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Double Sharing</span>
+                            <span class="tag">Non-AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹7,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Two Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Ceiling Fans</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Double%20Sharing%20Non-AC%20Room&category=Double%20Sharing%20Non-AC&price=7000&image=https://source.unsplash.com/640x480/?bedroom,twin" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Triple Room AC -->
+                <div class="room-card" data-category="triple ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/m1caBZjyiwpNRxNOXs-UzdDlJyHjz-34bAiMpur8Ns0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMubm9icm9rZXIu/aW4vaW1hZ2VzLzhh/OWY5MDgzOGI4ZGNm/NjkwMThiOGViNDA0/Zjc3NmRjLzhhOWY5/MDgzOGI4ZGNmNjkw/MThiOGViNDA0Zjc3/NmRjXzc1NTE3X21l/ZGl1bS5qcGc" alt="Triple Sharing AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Triple Sharing AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Triple Sharing</span>
+                            <span class="tag">AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹7,500 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Three Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Air Conditioner</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Triple%20Sharing%20AC%20Room&category=Triple%20Sharing%20AC&price=7500&image=https://source.unsplash.com/640x480/?bedroom,triple" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Triple Room Non-AC -->
+                <div class="room-card" data-category="triple non-ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/vbLULKr7zzxGxNXeihODG11VKAdGzk12sUmeC0m4iKg/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hcG9s/bG8ub2x4LmluL3Yx/L2ZpbGVzL2gyaDg1/bHpqYWQ3ZDEtSU4v/aW1hZ2U7cz0yNzJ4/MA" alt="Triple Sharing Non-AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Triple Sharing Non-AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Triple Sharing</span>
+                            <span class="tag">Non-AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹6,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Three Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Ceiling Fans</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Triple%20Sharing%20Non-AC%20Room&category=Triple%20Sharing%20Non-AC&price=6000&image=https://source.unsplash.com/640x480/?dormitory,triple" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Quad Room AC -->
+                <div class="room-card" data-category="quad ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/wtOmMKWUhFoAtlWxrfluJU5re4L3900mnGGQrTGajgk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ob3RlbC1yb29t/LXdpdGgtYmVkLWRl/c2stbGFtcF80MjUx/NTQtODc2NC5qcGc_/c2VtdD1haXNfaHli/cmlkJnc9NzQw" alt="Quad Sharing AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Quad Sharing AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Quad Sharing</span>
+                            <span class="tag">AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹6,500 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Four Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Air Conditioner</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Quad%20Sharing%20AC%20Room&category=Quad%20Sharing%20AC&price=6500&image=https://source.unsplash.com/640x480/?dormitory,quad" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Quad Room Non-AC -->
+                <div class="room-card" data-category="quad non-ac">
+                    <div class="room-image">
+                        <img src="https://imgs.search.brave.com/K9TJS6n-muRvEPxLG8JHBD4vbsMrsP3Aku4aY0rTcps/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMubm9icm9rZXIu/aW4vaW1hZ2VzLzhh/OWZhOTg0OTRjNGFk/ZDgwMTk0YzRmOTU4/NWUxNGJiLzhhOWZh/OTg0OTRjNGFkZDgw/MTk0YzRmOTU4NWUx/NGJiXzYxODUyXzM3/MjExOV9tZWRpdW0u/anBn" alt="Quad Sharing Non-AC Room">
+                    </div>
+                    <div class="room-details">
+                        <h3 class="room-type">Quad Sharing Non-AC Room</h3>
+                        <div class="room-tags">
+                            <span class="tag">Quad Sharing</span>
+                            <span class="tag">Non-AC</span>
+                            <span class="tag">Attached Bathroom</span>
+                        </div>
+                        <div class="room-price">
+                            ₹5,000 <span>/ month</span>
+                        </div>
+                        <div class="room-features">
+                            <ul>
+                                <li>Four Single Beds with Mattresses</li>
+                                <li>Study Tables & Chairs</li>
+                                <li>Individual Wardrobes</li>
+                                <li>Ceiling Fans</li>
+                                <li>Attached Bathroom</li>
+                            </ul>
+                        </div>
+                        <a href="payment.html?type=Quad%20Sharing%20Non-AC%20Room&category=Quad%20Sharing%20Non-AC&price=5000&image=https://source.unsplash.com/640x480/?dormitory,four" class="btn btn-primary book-now-btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize room filters
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const roomCards = document.querySelectorAll('.room-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filter = this.dataset.filter;
+                    
+                    // Show/hide cards based on filter
+                    roomCards.forEach(card => {
+                        if (filter === 'all') {
+                            card.style.display = 'block';
+                        } else {
+                            const categories = card.dataset.category.split(' ');
+                            if (categories.includes(filter)) {
+                                card.style.display = 'block';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html> 

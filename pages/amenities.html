@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amenities - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Page Specific Styles */
+        .amenities-container {
+            padding: 4rem 0;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .amenity-card {
+            background-color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .amenity-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .amenity-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .amenity-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .amenity-card:hover .amenity-image img {
+            transform: scale(1.05);
+        }
+
+        .amenity-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(74, 107, 255, 0.9);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 2rem;
+            z-index: 1;
+        }
+
+        .amenity-details {
+            padding: 1.5rem;
+        }
+
+        .amenity-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .amenity-description {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .amenity-list {
+            margin-top: 4rem;
+            background-color: #f0f5ff;
+            padding: 3rem 0;
+            border-radius: 10px;
+        }
+
+        .amenity-list-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .amenity-list-icon {
+            color: var(--primary-color);
+            font-size: 2rem;
+            margin-right: 1.5rem;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .amenity-list-content h4 {
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .amenity-list-content p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .amenity-list-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .amenity-list-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html" class="active">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <div class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://imgs.search.brave.com/87BB-6x2FkFwHzyKN1I9ZoyjCcCo5BSmHs98RZOJjIs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hc3Nl/dC1jZG4uc3Rhbnph/bGl2aW5nLmNvbS9z/dGFuemEtbGl2aW5n/L2ltYWdlL3VwbG9h/ZC9mX2F1dG8scV9h/dXRvLHdfNjAwL2Vf/aW1wcm92ZS9lX3No/YXJwZW46MzAvdjE2/NzkzNzk0ODgvV2Vi/c2l0ZS9DTVMtVXBs/b2Fkcy9IZXJvX0lt/YWdlX2tuOWllOS5q/cGc') !important; background-size: cover; background-position: center; height: 30vh; display: flex; justify-content: center; align-items: center; color: white; text-align: center;">
+        <div class="container">
+            <h1>Our Amenities</h1>
+            <p>Experience premium facilities designed for your comfort</p>
+        </div>
+    </div>
+
+    <section class="amenities-container">
+        <div class="container">
+            <h2 class="section-title">Premium Amenities</h2>
+            <div class="amenities-grid">
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/XMU4ueUs3NcgC90XvZOxQZKxJoDR81uFKLsdKWkp-8o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMy1t/ZWRpYTAuZmwueWVs/cGNkbi5jb20vYnBo/b3RvL3hCVmhXZUtj/YU9uT3NlWm1PbDY5/QWcvbHMuanBn" alt="Swimming Pool">
+                        <div class="amenity-icon">
+                            <i class="fas fa-swimming-pool"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Swimming Pool</h3>
+                        <p class="amenity-description">Take a refreshing dip in our clean, well-maintained swimming pool. Perfect for relaxation and exercise.</p>
+                    </div>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/7X5oGQiiUAqpUMp1_BJrt42rl_PCrRiHtsHNl2m6kxY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzQzLzIwLzI4/LzM2MF9GXzQzMjAy/ODU3X1I3bERJbWtr/dElDTk03VE9GRVF1/eXNHQXY4RkxzZDdB/LmpwZw" alt="Modern Gym">
+                        <div class="amenity-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Modern Gym</h3>
+                        <p class="amenity-description">Stay fit with our fully-equipped gym featuring cardio machines, free weights, and more.</p>
+                    </div>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/R0DL7hgaA9jguCRRhnmYUNLg2qcxSt0VlAZw1Gjqwm4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aGVh/cmNoaXRlY3RzZGlh/cnkuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDI0LzA1L25h/dmluLW5pc2FyLTEz/LTgwM3gxMDI0LTEt/anBnLndlYnA" alt="Study Room">
+                        <div class="amenity-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Study Room</h3>
+                        <p class="amenity-description">A quiet, well-lit space designed for focused studying and academic success.</p>
+                    </div>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/BwBji2u99RIDuRRLaZTtIPHuzBN8YrqCkIZ9dbtl_JY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzhlL2I0/LzliLzhlYjQ5YmFl/MWQwYzQ5ODYxNmRm/ZDEyMDA3MTUwM2Rh/LmpwZw" alt="Game Zone">
+                        <div class="amenity-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Game Zone</h3>
+                        <p class="amenity-description">Unwind and socialize in our game zone featuring table tennis, carrom, chess, and more.</p>
+                    </div>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/6GTxlna_k4ZW_OD195CTs3vPuFWM1di_3atURcp5GNw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvODY2/MDQ2NjkwL3Bob3Rv/L2F1dG9tYXRpYy13/YXNoaW5nLW1hY2hp/bmVzLWF0LWxhdW5k/cnktc2VydmljZS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/cm12XzFaX211Ujdu/STVYQjZzUWxCYlF3/dGV3MUdkZ3VkOFUw/cEFBRnhlVT0" alt="Laundry Service">
+                        <div class="amenity-icon">
+                            <i class="fas fa-tshirt"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Laundry Service</h3>
+                        <p class="amenity-description">Convenient laundry services to ensure you always have clean clothes without the hassle.</p>
+                    </div>
+                </div>
+
+                <div class="amenity-card">
+                    <div class="amenity-image">
+                        <img src="https://imgs.search.brave.com/OfrDMULI_S208fVqsTHl3T78Y68RJ5iN8xT0kj1Eaew/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91Y2hn/aXJsc3BnLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NS9GT09EQ09VUlQx/LTMwMHgyMjUuanBl/Zw" alt="Dining Area">
+                        <div class="amenity-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                    </div>
+                    <div class="amenity-details">
+                        <h3 class="amenity-title">Dining Area</h3>
+                        <p class="amenity-description">Spacious dining area where you can enjoy nutritious and delicious meals with fellow residents.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="amenity-list">
+        <div class="container">
+            <h2 class="section-title">Additional Facilities</h2>
+            
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>24/7 Electricity</h4>
+                    <p>Uninterrupted power supply with backup generators to ensure your comfort around the clock.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-video"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>CCTV Surveillance</h4>
+                    <p>Round-the-clock CCTV monitoring for enhanced security and peace of mind.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-fingerprint"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>Biometric Access</h4>
+                    <p>State-of-the-art biometric access control system for maximum security.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-wifi"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>High-Speed WiFi</h4>
+                    <p>Reliable, high-speed internet connectivity throughout the premises for work and entertainment.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-couch"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>Common Lounge</h4>
+                    <p>Comfortable common areas for relaxation, socializing, and community building.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-broom"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>Housekeeping Services</h4>
+                    <p>Regular cleaning and maintenance of rooms and common areas for a hygienic living environment.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-first-aid"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>First Aid & Emergency Services</h4>
+                    <p>First aid kits and emergency assistance available 24/7 for any medical needs.</p>
+                </div>
+            </div>
+
+            <div class="amenity-list-item">
+                <div class="amenity-list-icon">
+                    <i class="fas fa-parking"></i>
+                </div>
+                <div class="amenity-list-content">
+                    <h4>Vehicle Parking</h4>
+                    <p>Secure parking spaces for bicycles, two-wheelers, and four-wheelers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html> 

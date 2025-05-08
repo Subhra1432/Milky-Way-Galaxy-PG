@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton" class="active">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <section class="auth-container" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://img.staticmb.com/mbphoto/pg/grd2/cropped_images/2025/Apr/02/full_photo/GR2-488719-2438013.jpeg'); background-size: cover; background-position: center;">
+        <div class="login-container" style="background-color: white; box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);">
+            <div class="form-container">
+                <!-- Login Form -->
+                <div class="login-form">
+                    <h2 class="auth-title">Login to Your Account</h2>
+                    <form id="loginForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="loginEmail">Email</label>
+                            <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Login</button>
+                        <div class="auth-footer">
+                            Don't have an account? <a href="#" class="toggle-form" style="color: #4285F4; text-decoration: underline; font-weight: bold; cursor: pointer;">Register</a>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div class="register-form">
+                    <h2 class="auth-title">Create an Account</h2>
+                    <form id="registerForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="registerName">Full Name</label>
+                            <input type="text" id="registerName" class="form-control" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerEmail">Email</label>
+                            <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" class="form-control" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="registerPhone">Phone Number</label>
+                            <input type="tel" id="registerPhone" class="form-control" placeholder="Enter your phone number" required>
+                        </div>
+                        <button type="submit" class="auth-btn">Register</button>
+                        <div class="auth-footer">
+                            Already have an account? <a href="#" class="toggle-form" style="color: #4285F4; text-decoration: underline; font-weight: bold; cursor: pointer;">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        // Super simple direct toggle approach
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.querySelector('.login-form');
+            const registerForm = document.querySelector('.register-form');
+            const registerLink = document.querySelector('.login-form .toggle-form');
+            const loginLink = document.querySelector('.register-form .toggle-form');
+            
+            // Make sure we have all elements
+            if (!loginForm || !registerForm || !registerLink || !loginLink) {
+                console.error('Missing form elements!', {
+                    loginForm: !!loginForm,
+                    registerForm: !!registerForm,
+                    registerLink: !!registerLink,
+                    loginLink: !!loginLink
+                });
+                return;
+            }
+
+            // Switch to register form
+            registerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Switching to register form');
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'block';
+            });
+            
+            // Switch to login form
+            loginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Switching to login form');
+                registerForm.style.display = 'none';
+                loginForm.style.display = 'block';
+            });
+            
+            // Initialize: ensure login form is visible
+            loginForm.style.display = 'block';
+            registerForm.style.display = 'none';
+            
+            console.log('Form toggle handlers initialized');
+        });
+    </script>
+</body>
+</html> 

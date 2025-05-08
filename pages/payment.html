@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Page Specific Styles */
+        .payment-container {
+            padding: 4rem 0;
+        }
+
+        .payment-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .payment-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .booking-summary {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .booking-summary h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .room-details-summary {
+            margin-bottom: 2rem;
+        }
+
+        .room-image-summary {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        .room-image-summary img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .room-type-summary {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--dark-color);
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.8rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-label {
+            color: #666;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .total-summary {
+            background-color: #f0f5ff;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .total-summary .summary-item {
+            border-bottom: none;
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .total-summary .summary-value {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        .payment-form {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+
+        .payment-form h3 {
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h4 {
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 576px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .payment-method {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .payment-option input {
+            margin: 0;
+        }
+
+        .card-icons {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .card-icon {
+            color: #888;
+            font-size: 1.5rem;
+        }
+
+        .payment-btn {
+            background-color: var(--primary-color);
+            color: #fff;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .payment-btn:hover {
+            background-color: #3a5aee;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <div class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/1600x900/?payment,credit-card') !important; background-size: cover; background-position: center; height: 30vh; display: flex; justify-content: center; align-items: center; color: white; text-align: center;">
+        <div class="container">
+            <h1>Payment</h1>
+            <p>Complete your booking by making a secure payment</p>
+        </div>
+    </div>
+
+    <section class="payment-container">
+        <div class="container">
+            <div class="payment-wrapper">
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="room-details-summary">
+                        <div class="room-image-summary">
+                            <img id="roomImage" src="https://source.unsplash.com/640x480/?bedroom" alt="Room">
+                        </div>
+                        <div class="room-type-summary" id="roomType">Room Type</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Category</div>
+                        <div class="summary-value" id="roomCategory">Category</div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Monthly Rent</div>
+                        <div class="summary-value">₹<span id="roomPrice">0</span></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Security Deposit (Refundable)</div>
+                        <div class="summary-value">₹<span id="securityDeposit">0</span></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Maintenance Charges</div>
+                        <div class="summary-value">₹<span id="maintenanceCharges">0</span></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="summary-label">Food Plan (Optional)</div>
+                        <div class="summary-value">₹<span id="foodPlanCost">0</span></div>
+                    </div>
+                    <div class="total-summary">
+                        <div class="summary-item">
+                            <div class="summary-label">Total Amount</div>
+                            <div class="summary-value">₹<span id="totalAmount">0</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="payment-form">
+                    <h3>Complete Your Booking</h3>
+                    <form id="bookingForm">
+                        <div class="form-section">
+                            <h4>Personal Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="email" id="email" class="form-control" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <textarea id="address" class="form-control" rows="3" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>Booking Details</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="checkInDate">Check-in Date</label>
+                                    <input type="date" id="checkInDate" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Duration</label>
+                                    <select id="duration" class="form-control" required>
+                                        <option value="1">1 Month</option>
+                                        <option value="3">3 Months</option>
+                                        <option value="6">6 Months</option>
+                                        <option value="12">12 Months</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="foodPlan">Food Plan (Optional)</label>
+                                <select id="foodPlan" class="form-control">
+                                    <option value="none">None</option>
+                                    <option value="veg">Vegetarian (₹3,000/month)</option>
+                                    <option value="nonveg">Non-Vegetarian (₹3,500/month)</option>
+                                    <option value="special">Special Diet (₹4,000/month)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="specialRequests">Special Requests (Optional)</label>
+                                <textarea id="specialRequests" class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-section">
+                            <h4>Payment Method</h4>
+                            <div class="payment-method">
+                                <div class="payment-option">
+                                    <input type="radio" id="creditCard" name="paymentMethod" value="creditCard" checked>
+                                    <label for="creditCard">Credit Card</label>
+                                </div>
+                                <div class="payment-option">
+                                    <input type="radio" id="debitCard" name="paymentMethod" value="debitCard">
+                                    <label for="debitCard">Debit Card</label>
+                                </div>
+                                <div class="payment-option">
+                                    <input type="radio" id="netBanking" name="paymentMethod" value="netBanking">
+                                    <label for="netBanking">Net Banking</label>
+                                </div>
+                                <div class="payment-option">
+                                    <input type="radio" id="upi" name="paymentMethod" value="upi">
+                                    <label for="upi">UPI</label>
+                                </div>
+                            </div>
+                            <div class="card-payment-fields">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="cardNumber">Card Number</label>
+                                        <input type="text" id="cardNumber" class="form-control" placeholder="1234 5678 9012 3456">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cardName">Name on Card</label>
+                                        <input type="text" id="cardName" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="expiryDate">Expiry Date</label>
+                                        <input type="text" id="expiryDate" class="form-control" placeholder="MM/YY">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cvv">CVV</label>
+                                        <input type="text" id="cvv" class="form-control" placeholder="123">
+                                    </div>
+                                </div>
+                                <div class="card-icons">
+                                    <i class="fab fa-cc-visa card-icon"></i>
+                                    <i class="fab fa-cc-mastercard card-icon"></i>
+                                    <i class="fab fa-cc-amex card-icon"></i>
+                                    <i class="fab fa-cc-discover card-icon"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="payment-btn">Complete Booking</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                // Redirect to login page with redirect back to payment page
+                window.location.href = 'login.html?redirect=' + encodeURIComponent(window.location.href);
+                return;
+            }
+            
+            // Auto-fill user data
+            document.getElementById('firstName').value = currentUser.name.split(' ')[0] || '';
+            document.getElementById('lastName').value = currentUser.name.split(' ')[1] || '';
+            document.getElementById('email').value = currentUser.email || '';
+            document.getElementById('phone').value = currentUser.phone || '';
+            
+            // Get URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const roomType = urlParams.get('type') || 'Single Sharing AC Room';
+            const roomCategory = urlParams.get('category') || 'Single Sharing AC';
+            const roomPrice = parseInt(urlParams.get('price')) || 12000;
+            const roomImage = urlParams.get('image') || 'https://source.unsplash.com/640x480/?bedroom';
+            
+            // Update booking summary
+            document.getElementById('roomType').textContent = roomType;
+            document.getElementById('roomCategory').textContent = roomCategory;
+            document.getElementById('roomPrice').textContent = roomPrice;
+            document.getElementById('roomImage').src = roomImage;
+            
+            // Calculate other charges
+            const securityDeposit = roomPrice;
+            const maintenanceCharges = 1000;
+            let foodPlanCost = 0;
+            
+            document.getElementById('securityDeposit').textContent = securityDeposit;
+            document.getElementById('maintenanceCharges').textContent = maintenanceCharges;
+            document.getElementById('foodPlanCost').textContent = foodPlanCost;
+            
+            // Calculate total
+            updateTotalAmount();
+            
+            // Update total when food plan changes
+            document.getElementById('foodPlan').addEventListener('change', function() {
+                const selectedFoodPlan = this.value;
+                
+                switch(selectedFoodPlan) {
+                    case 'veg':
+                        foodPlanCost = 3000;
+                        break;
+                    case 'nonveg':
+                        foodPlanCost = 3500;
+                        break;
+                    case 'special':
+                        foodPlanCost = 4000;
+                        break;
+                    default:
+                        foodPlanCost = 0;
+                }
+                
+                document.getElementById('foodPlanCost').textContent = foodPlanCost;
+                updateTotalAmount();
+            });
+            
+            // Update total when duration changes
+            document.getElementById('duration').addEventListener('change', updateTotalAmount);
+            
+            // Calculate and update total amount
+            function updateTotalAmount() {
+                const duration = parseInt(document.getElementById('duration').value);
+                const monthlyRent = roomPrice;
+                const foodPlanCost = parseInt(document.getElementById('foodPlanCost').textContent);
+                
+                // For first month: rent + security deposit + maintenance + food plan
+                // For subsequent months: only rent + food plan
+                const totalAmount = securityDeposit + maintenanceCharges + (monthlyRent * duration) + (foodPlanCost * duration);
+                
+                document.getElementById('totalAmount').textContent = totalAmount;
+            }
+            
+            // Set minimum check-in date to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowString = tomorrow.toISOString().split('T')[0];
+            document.getElementById('checkInDate').setAttribute('min', tomorrowString);
+            
+            // Toggle payment fields based on payment method
+            const paymentMethods = document.querySelectorAll('input[name="paymentMethod"]');
+            const cardPaymentFields = document.querySelector('.card-payment-fields');
+            
+            paymentMethods.forEach(method => {
+                method.addEventListener('change', function() {
+                    if (this.value === 'creditCard' || this.value === 'debitCard') {
+                        cardPaymentFields.style.display = 'block';
+                    } else {
+                        cardPaymentFields.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Handle form submission
+            document.getElementById('bookingForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Get form values
+                const firstName = document.getElementById('firstName').value;
+                const lastName = document.getElementById('lastName').value;
+                const email = document.getElementById('email').value;
+                const phone = document.getElementById('phone').value;
+                const address = document.getElementById('address').value;
+                const checkInDate = document.getElementById('checkInDate').value;
+                const duration = document.getElementById('duration').value;
+                const foodPlan = document.getElementById('foodPlan').value;
+                const specialRequests = document.getElementById('specialRequests').value;
+                const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                
+                // Simple validation
+                if (!firstName || !lastName || !email || !phone || !address || !checkInDate) {
+                    showMessage('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                // In a real application, this would be an API call to process payment and create booking
+                
+                // Create a booking record (simulated)
+                const bookingId = 'BK-' + Math.floor(100000 + Math.random() * 900000);
+                const booking = {
+                    id: bookingId,
+                    userId: currentUser.id,
+                    roomType: roomType,
+                    roomCategory: roomCategory,
+                    checkInDate: checkInDate,
+                    duration: duration + ' Month' + (duration > 1 ? 's' : ''),
+                    foodPlan: foodPlan,
+                    amount: document.getElementById('totalAmount').textContent,
+                    status: 'Confirmed',
+                    createdAt: new Date().toISOString()
+                };
+                
+                // Save booking to "database" (localStorage)
+                const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+                bookings.push(booking);
+                localStorage.setItem('bookings', JSON.stringify(bookings));
+                
+                showMessage('Booking successful! Redirecting to your profile...', 'success');
+                
+                // Redirect to profile page after successful booking
+                setTimeout(() => {
+                    window.location.href = 'profile.html';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html> 

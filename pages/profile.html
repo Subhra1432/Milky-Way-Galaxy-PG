@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" class="active" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <section class="profile-container">
+        <div class="container">
+            <div class="profile-header">
+                <div class="profile-avatar" id="userAvatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="profile-info">
+                    <h2 id="userName">Loading...</h2>
+                    <p id="userEmail">Loading...</p>
+                    <a href="#" class="edit-profile-btn">Edit Profile</a>
+                    <a href="#" id="logoutBtn" class="edit-profile-btn" style="margin-left: 10px;">Logout</a>
+                </div>
+            </div>
+
+            <div class="profile-tabs">
+                <div class="tab-links">
+                    <div class="tab-link active" data-tab="bookings">My Bookings</div>
+                    <div class="tab-link" data-tab="payments">Payment History</div>
+                    <div class="tab-link" data-tab="settings">Account Settings</div>
+                </div>
+
+                <!-- Bookings Tab -->
+                <div class="tab-content active" id="bookings-tab">
+                    <h3>My Bookings</h3>
+                    <div id="bookingsList">
+                        <!-- Sample Booking (will be populated by JavaScript) -->
+                        <div class="booking-card">
+                            <div class="booking-header">
+                                <div class="booking-title">Single Sharing AC Room</div>
+                                <div class="booking-status confirmed">Confirmed</div>
+                            </div>
+                            <div class="booking-details">
+                                <div class="booking-detail">
+                                    <div class="detail-label">Booking ID</div>
+                                    <div class="detail-value">BK-12345</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Check-in Date</div>
+                                    <div class="detail-value">15 Jan 2023</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Duration</div>
+                                    <div class="detail-value">6 Months</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Amount Paid</div>
+                                    <div class="detail-value">₹12,000</div>
+                                </div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="booking-btn view-details-btn">View Details</button>
+                                <button class="booking-btn cancel-booking-btn">Cancel Booking</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-bookings" id="noBookings" style="display: none;">
+                        <i class="fas fa-calendar-times"></i>
+                        <h3>No Bookings Yet</h3>
+                        <p>You haven't made any bookings yet. Browse our rooms and make your first booking.</p>
+                        <a href="rooms.html" class="auth-btn" style="display: inline-block; max-width: 200px; margin-top: 1rem;">Book Now</a>
+                    </div>
+                </div>
+
+                <!-- Payments Tab -->
+                <div class="tab-content" id="payments-tab">
+                    <h3>Payment History</h3>
+                    <div id="paymentsList">
+                        <!-- Sample Payment (will be populated by JavaScript) -->
+                        <div class="booking-card">
+                            <div class="booking-header">
+                                <div class="booking-title">Room Booking Payment</div>
+                                <div class="booking-status confirmed">Successful</div>
+                            </div>
+                            <div class="booking-details">
+                                <div class="booking-detail">
+                                    <div class="detail-label">Transaction ID</div>
+                                    <div class="detail-value">TX-54321</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Date</div>
+                                    <div class="detail-value">15 Jan 2023</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Payment Method</div>
+                                    <div class="detail-value">Credit Card</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Amount</div>
+                                    <div class="detail-value">₹12,000</div>
+                                </div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="booking-btn view-details-btn">View Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="no-bookings" id="noPayments" style="display: none;">
+                        <i class="fas fa-file-invoice"></i>
+                        <h3>No Payment History</h3>
+                        <p>You haven't made any payments yet.</p>
+                    </div>
+                </div>
+
+                <!-- Settings Tab -->
+                <div class="tab-content" id="settings-tab">
+                    <h3>Account Settings</h3>
+                    <form id="profileUpdateForm" class="auth-form">
+                        <div class="form-group">
+                            <label for="updateName">Full Name</label>
+                            <input type="text" id="updateName" class="form-control" placeholder="Enter your full name">
+                        </div>
+                        <div class="form-group">
+                            <label for="updateEmail">Email</label>
+                            <input type="email" id="updateEmail" class="form-control" placeholder="Enter your email" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePhone">Phone Number</label>
+                            <input type="tel" id="updatePhone" class="form-control" placeholder="Enter your phone number">
+                        </div>
+                        <div class="form-group">
+                            <label for="updatePassword">Change Password</label>
+                            <input type="password" id="updatePassword" class="form-control" placeholder="Enter new password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirmUpdatePassword">Confirm New Password</label>
+                            <input type="password" id="confirmUpdatePassword" class="form-control" placeholder="Confirm new password">
+                        </div>
+                        <button type="submit" class="auth-btn">Update Profile</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load user data
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Display user info
+            document.getElementById('userName').textContent = currentUser.name;
+            document.getElementById('userEmail').textContent = currentUser.email;
+            
+            // Set initial form values
+            document.getElementById('updateName').value = currentUser.name;
+            document.getElementById('updateEmail').value = currentUser.email;
+            if (currentUser.phone) {
+                document.getElementById('updatePhone').value = currentUser.phone;
+            }
+            
+            // Handle profile update
+            const profileUpdateForm = document.getElementById('profileUpdateForm');
+            if (profileUpdateForm) {
+                profileUpdateForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const name = document.getElementById('updateName').value;
+                    const phone = document.getElementById('updatePhone').value;
+                    const password = document.getElementById('updatePassword').value;
+                    const confirmPassword = document.getElementById('confirmUpdatePassword').value;
+                    
+                    // Validate form
+                    if (!name) {
+                        showMessage('Please enter your name', 'error');
+                        return;
+                    }
+                    
+                    if (password && password !== confirmPassword) {
+                        showMessage('Passwords do not match', 'error');
+                        return;
+                    }
+                    
+                    // Update user data
+                    const updatedUser = {
+                        ...currentUser,
+                        name: name,
+                        phone: phone
+                    };
+                    
+                    // If password was updated
+                    if (password) {
+                        // Get all users
+                        const users = JSON.parse(localStorage.getItem('users')) || [];
+                        const userIndex = users.findIndex(u => u.id === currentUser.id);
+                        
+                        if (userIndex !== -1) {
+                            users[userIndex].password = password;
+                            localStorage.setItem('users', JSON.stringify(users));
+                        }
+                    }
+                    
+                    // Update current user in localStorage
+                    localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+                    
+                    // Update displayed info
+                    document.getElementById('userName').textContent = name;
+                    
+                    showMessage('Profile updated successfully', 'success');
+                });
+            }
+            
+            // Set up tabs
+            const tabLinks = document.querySelectorAll('.tab-link');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    // Remove active class from all tabs
+                    tabLinks.forEach(l => l.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to selected tab
+                    this.classList.add('active');
+                    document.getElementById(`${this.dataset.tab}-tab`).classList.add('active');
+                });
+            });
+            
+            // Load bookings (sample data)
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            const bookingsList = document.getElementById('bookingsList');
+            const noBookings = document.getElementById('noBookings');
+            
+            if (bookings.length === 0) {
+                bookingsList.style.display = 'none';
+                noBookings.style.display = 'block';
+            } else {
+                bookingsList.innerHTML = '';
+                bookings.forEach(booking => {
+                    if (booking.userId === currentUser.id) {
+                        const bookingCard = document.createElement('div');
+                        bookingCard.className = 'booking-card';
+                        bookingCard.innerHTML = `
+                            <div class="booking-header">
+                                <div class="booking-title">${booking.roomType}</div>
+                                <div class="booking-status ${booking.status.toLowerCase()}">${booking.status}</div>
+                            </div>
+                            <div class="booking-details">
+                                <div class="booking-detail">
+                                    <div class="detail-label">Booking ID</div>
+                                    <div class="detail-value">${booking.id}</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Check-in Date</div>
+                                    <div class="detail-value">${booking.checkInDate}</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Duration</div>
+                                    <div class="detail-value">${booking.duration}</div>
+                                </div>
+                                <div class="booking-detail">
+                                    <div class="detail-label">Amount Paid</div>
+                                    <div class="detail-value">₹${booking.amount}</div>
+                                </div>
+                            </div>
+                            <div class="booking-actions">
+                                <button class="booking-btn view-details-btn" data-id="${booking.id}">View Details</button>
+                                <button class="booking-btn cancel-booking-btn" data-id="${booking.id}" ${booking.status === 'Cancelled' ? 'disabled' : ''}>Cancel Booking</button>
+                            </div>
+                        `;
+                        bookingsList.appendChild(bookingCard);
+                    }
+                });
+                
+                // If no bookings found for this user
+                if (bookingsList.children.length === 0) {
+                    bookingsList.style.display = 'none';
+                    noBookings.style.display = 'block';
+                }
+            }
+        });
+        
+        // Show message to user
+        function showMessage(message, type) {
+            // Check if message container exists
+            let messageContainer = document.getElementById('profileMessageContainer');
+            
+            // If not, create one
+            if (!messageContainer) {
+                messageContainer = document.createElement('div');
+                messageContainer.id = 'profileMessageContainer';
+                messageContainer.className = 'message-container';
+                document.body.appendChild(messageContainer);
+                
+                // Add styles if needed
+                if (!document.getElementById('messageStyles')) {
+                    const style = document.createElement('style');
+                    style.id = 'messageStyles';
+                    style.innerHTML = `
+                        .message-container {
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            z-index: 9999;
+                            max-width: 300px;
+                        }
+                        
+                        .message {
+                            padding: 15px;
+                            margin-bottom: 10px;
+                            border-radius: 5px;
+                            color: white;
+                            font-weight: 500;
+                            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                            animation: slideIn 0.3s ease-in-out;
+                        }
+                        
+                        .message.success {
+                            background-color: #4CAF50;
+                        }
+                        
+                        .message.error {
+                            background-color: #F44336;
+                        }
+                        
+                        @keyframes slideIn {
+                            from {
+                                transform: translateX(100%);
+                                opacity: 0;
+                            }
+                            to {
+                                transform: translateX(0);
+                                opacity: 1;
+                            }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+            }
+            
+            // Create message element
+            const messageElement = document.createElement('div');
+            messageElement.className = `message ${type}`;
+            messageElement.textContent = message;
+            
+            // Add to container
+            messageContainer.appendChild(messageElement);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                messageElement.remove();
+            }, 3000);
+        }
+    </script>
+</body>
+</html> 

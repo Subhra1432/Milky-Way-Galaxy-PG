@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery - Milky Way Galaxy Star PG</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Page Specific Styles */
+        .gallery-container {
+            padding: 4rem 0;
+        }
+
+        .gallery-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .filter-btn {
+            background-color: #f0f0f0;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            aspect-ratio: 1/1;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: #fff;
+            padding: 1rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            transform: translateY(0);
+        }
+
+        .gallery-item-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .gallery-item-category {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            width: 80%;
+            max-width: 800px;
+        }
+
+        .lightbox-img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .lightbox-caption {
+            position: absolute;
+            bottom: -40px;
+            left: 0;
+            width: 100%;
+            color: #fff;
+            text-align: center;
+        }
+
+        .close-lightbox {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .lightbox-prev {
+            left: -70px;
+        }
+
+        .lightbox-next {
+            right: -70px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .lightbox-content {
+                width: 95%;
+            }
+
+            .lightbox-prev {
+                left: -35px;
+            }
+
+            .lightbox-next {
+                right: -35px;
+            }
+
+            .lightbox-prev,
+            .lightbox-next {
+                width: 40px;
+                height: 40px;
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <a href="../index.html">
+                    <img src="../images/logo.png" alt="Milky Way Galaxy Star PG Logo" class="logo-img">
+                </a>
+            </div>
+            <div class="nav-links" id="navLinks">
+                <i class="fas fa-times" id="closeMenu"></i>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="rooms.html">Rooms</a></li>
+                    <li><a href="amenities.html">Amenities</a></li>
+                    <li><a href="food-plans.html">Food Plans</a></li>
+                    <li><a href="gallery.html" class="active">Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="login.html" id="loginButton">Login</a></li>
+                    <li><a href="profile.html" id="userProfileButton" style="display: none;"><i class="fas fa-user-circle"></i> <span>User</span></a></li>
+                </ul>
+            </div>
+            <i class="fas fa-bars" id="openMenu"></i>
+        </nav>
+    </header>
+
+    <div class="page-header" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://imgs.search.brave.com/5k_y43BmDDi853NB8XTNIfu9KI0wh0ii3FTtmlRkhAc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9yYWRo/b3N0ZWwuczMuYW1h/em9uYXdzLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyNC8w/My9leHRlcmlvci1t/dXJhbC1nYWxsZXJ5/LmpwZw') !important; background-size: cover; background-position: center; height: 30vh; display: flex; justify-content: center; align-items: center; color: white; text-align: center;">
+        <div class="container">
+            <h1>Gallery</h1>
+            <p>A visual tour of our premium PG accommodation</p>
+        </div>
+    </div>
+
+    <section class="gallery-container">
+        <div class="container">
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="rooms">Rooms</button>
+                <button class="filter-btn" data-filter="amenities">Amenities</button>
+                <button class="filter-btn" data-filter="dining">Dining</button>
+                <button class="filter-btn" data-filter="events">Events</button>
+            </div>
+
+            <div class="gallery-grid">
+                <!-- Room Images -->
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://img.staticmb.com/mbphoto/pg/grd2/cropped_images/2025/Jan/27/full_photo/GR2-480463-2377865.jpg" alt="Single AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Single AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://imgs.search.brave.com/-fsYkQbD4Ar9vvMKjbQHkXQ6he4mIRBqIQG3KlegaL0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hbGV4/YW5kcm8uaW4vaW1h/Z2UvZGVsaGkvY292/aWUtZWFzdC1vZi1r/YWlsYXNoLTUyLzEu/anBn" alt="Double AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Double AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://imgs.search.brave.com/m1caBZjyiwpNRxNOXs-UzdDlJyHjz-34bAiMpur8Ns0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMubm9icm9rZXIu/aW4vaW1hZ2VzLzhh/OWY5MDgzOGI4ZGNm/NjkwMThiOGViNDA0/Zjc3NmRjLzhhOWY5/MDgzOGI4ZGNmNjkw/MThiOGViNDA0Zjc3/NmRjXzc1NTE3X21l/ZGl1bS5qcGc" alt="Triple AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Triple AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://imgs.search.brave.com/wtOmMKWUhFoAtlWxrfluJU5re4L3900mnGGQrTGajgk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9ob3RlbC1yb29t/LXdpdGgtYmVkLWRl/c2stbGFtcF80MjUx/NTQtODc2NC5qcGc_/c2VtdD1haXNfaHli/cmlkJnc9NzQw" alt="Quad AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Quad AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://apollo.olx.in/v1/files/nc0fy4sc6ksm-IN/image;s=780x0;q=60" alt="Single Non-AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Single Non-AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="rooms">
+                    <img src="https://imgs.search.brave.com/V7Z5Bcg3LOuhJ5HnzHD-bA341I53_Vie0d96-yG11Cc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9hcG9s/bG8ub2x4LmluL3Yx/L2ZpbGVzL2d1anE4/bTRzcjl1YzItSU4v/aW1hZ2U7cz0yNzJ4/MA" alt="Double Non-AC Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Double Non-AC Room</div>
+                        <div class="gallery-item-category">Rooms</div>
+                    </div>
+                </div>
+
+                <!-- Amenities Images -->
+                <div class="gallery-item" data-category="amenities">
+                    <img src="https://imgs.search.brave.com/XMU4ueUs3NcgC90XvZOxQZKxJoDR81uFKLsdKWkp-8o/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9zMy1t/ZWRpYTAuZmwueWVs/cGNkbi5jb20vYnBo/b3RvL3hCVmhXZUtj/YU9uT3NlWm1PbDY5/QWcvbHMuanBn" alt="Swimming Pool">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Swimming Pool</div>
+                        <div class="gallery-item-category">Amenities</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="amenities">
+                    <img src="https://imgs.search.brave.com/7X5oGQiiUAqpUMp1_BJrt42rl_PCrRiHtsHNl2m6kxY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzAwLzQzLzIwLzI4/LzM2MF9GXzQzMjAy/ODU3X1I3bERJbWtr/dElDTk03VE9GRVF1/eXNHQXY4RkxzZDdB/LmpwZw" alt="Modern Gym">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Modern Gym</div>
+                        <div class="gallery-item-category">Amenities</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="amenities">
+                    <img src="https://imgs.search.brave.com/R0DL7hgaA9jguCRRhnmYUNLg2qcxSt0VlAZw1Gjqwm4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90aGVh/cmNoaXRlY3RzZGlh/cnkuY29tL3dwLWNv/bnRlbnQvdXBsb2Fk/cy8yMDI0LzA1L25h/dmluLW5pc2FyLTEz/LTgwM3gxMDI0LTEt/anBnLndlYnA" alt="Study Room">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Study Room</div>
+                        <div class="gallery-item-category">Amenities</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="amenities">
+                    <img src="https://imgs.search.brave.com/BwBji2u99RIDuRRLaZTtIPHuzBN8YrqCkIZ9dbtl_JY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pLnBp/bmltZy5jb20vb3Jp/Z2luYWxzLzhlL2I0/LzliLzhlYjQ5YmFl/MWQwYzQ5ODYxNmRm/ZDEyMDA3MTUwM2Rh/LmpwZw" alt="Game Zone">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Game Zone</div>
+                        <div class="gallery-item-category">Amenities</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="amenities">
+                    <img src="https://imgs.search.brave.com/6GTxlna_k4ZW_OD195CTs3vPuFWM1di_3atURcp5GNw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5pc3RvY2twaG90/by5jb20vaWQvODY2/MDQ2NjkwL3Bob3Rv/L2F1dG9tYXRpYy13/YXNoaW5nLW1hY2hp/bmVzLWF0LWxhdW5k/cnktc2VydmljZS5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/cm12XzFaX211Ujdu/STVYQjZzUWxCYlF3/dGV3MUdkZ3VkOFUw/cEFBRnhlVT0" alt="Laundry Service">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Laundry Service</div>
+                        <div class="gallery-item-category">Amenities</div>
+                    </div>
+                </div>
+
+                <!-- Dining Images -->
+                <div class="gallery-item" data-category="dining">
+                    <img src="https://imgs.search.brave.com/OfrDMULI_S208fVqsTHl3T78Y68RJ5iN8xT0kj1Eaew/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly91Y2hn/aXJsc3BnLmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMi8w/NS9GT09EQ09VUlQx/LTMwMHgyMjUuanBl/Zw" alt="Dining Area">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Dining Area</div>
+                        <div class="gallery-item-category">Dining</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dining">
+                    <img src="https://imgs.search.brave.com/jnxh5x5rWWWIP5Rp7_cW2MsALd45eFFvxRQpi5c-J0Y/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvNTMx/MTgzMjkyL3Bob3Rv/L2JyZWFrZmFzdC1m/ZWFzdC5qcGc_cz02/MTJ4NjEyJnc9MCZr/PTIwJmM9U3Nla2Nn/Rl9tZW1TSm4tSmkx/U2Yyb1VSRUZLdGNG/anBGUWVRWG82QXVM/Yz0" alt="Breakfast Spread">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Breakfast Spread</div>
+                        <div class="gallery-item-category">Dining</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dining">
+                    <img src="https://imgs.search.brave.com/Rn013vG6-t8xLtrxZktrDSO0NrJdt4qfFgmgIxTSZgw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tYXJr/ZXRwbGFjZS5jYW52/YS5jb20vRUFEYW5y/ejcyb0EvMS8wLzEy/MzZ3L2NhbnZhLWJs/dWUtYm94ZXMtbHVu/Y2gtd2Vla2x5LW1l/bnUtaWZmNTI3SEpD/MVkuanBn" alt="Lunch Menu">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Lunch Menu</div>
+                        <div class="gallery-item-category">Dining</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="dining">
+                    <img src="https://imgs.search.brave.com/NcbPwDybX7gOQRA4EIYmBhqNkEq8Q3g01H6oIGKhxx0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTI3/MzAwMjkxMS9waG90/by9wYXJ0eS1idWZm/ZXQuanBnP3M9NjEy/eDYxMiZ3PTAmaz0y/MCZjPUJicFg1ZDVz/SE45LUU4V0JkX1dO/Skx2ekdMcWtUdkxB/eHZkekM0ekJ5QWc9" alt="Dinner Spread">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Dinner Spread</div>
+                        <div class="gallery-item-category">Dining</div>
+                    </div>
+                </div>
+
+                <!-- Events Images -->
+                <div class="gallery-item" data-category="events">
+                    <img src="https://imgs.search.brave.com/Q6koVkdcRAh7qnU1oYZTz59TaBVnHWG-QU18r0xWubM/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS5nZXR0eWltYWdl/cy5jb20vaWQvMTI3/OTU4ODQ3Mi9waG90/by9zaXN0ZXJzLWRp/d2FsaS1jZWxlYnJh/dGUtYXQtaG9tZS1z/dG9jay1waG90by5q/cGc_cz02MTJ4NjEy/Jnc9MCZrPTIwJmM9/Q3hfNjFsYkZhLTd4/dFZ5OWtvMHhiYld1/V2FIeGFuM1M4dDVq/dDBBSGhQTT0" alt="Diwali Celebration">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Diwali Celebration</div>
+                        <div class="gallery-item-category">Events</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://imgs.search.brave.com/oVEO7bspZTAf9efVjwqwG0u1C-tsTy1hXznvkydZ-M8/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/cGl4YWJheS5jb20v/cGhvdG8vMjAyMi8w/OS8wMi8wNi80MC9j/ZWxlYnJhdGlvbi03/NDI2NzkwXzY0MC5q/cGc" alt="Holi Celebration">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Holi Celebration</div>
+                        <div class="gallery-item-category">Events</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://imgs.search.brave.com/rdIAzvfrmpSe-zGXBxBnSwsyRg-EPDXfl0LqoXmVpjY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzEwLzQ0LzUzLzAz/LzM2MF9GXzEwNDQ1/MzAzNDhfTHdIU3VQ/M0JEaXR5cU5TbnFs/Q1QyOWl4RTlPYndM/RlcuanBn" alt="Movie Night">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Movie Night</div>
+                        <div class="gallery-item-category">Events</div>
+                    </div>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <img src="https://imgs.search.brave.com/BWeHypWRR2P6SLec07Tg4Pgh7HlbImbTA5UMXKR0dKc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWcu/ZnJlZXBpay5jb20v/cHJlbWl1bS1waG90/by9lc3BvcnRzLXRv/dXJuYW1lbnQtd2lu/XzIzNjg1NC00MTI5/NC5qcGc_c2VtdD1h/aXNfaHlicmlkJnc9/NzQw" alt="Game Tournament">
+                    <div class="gallery-item-overlay">
+                        <div class="gallery-item-title">Game Tournament</div>
+                        <div class="gallery-item-category">Events</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <div class="lightbox-content">
+            <span class="close-lightbox"><i class="fas fa-times"></i></span>
+            <img src="" alt="" class="lightbox-img" id="lightbox-img">
+            <div class="lightbox-caption" id="lightbox-caption"></div>
+            <span class="lightbox-prev"><i class="fas fa-chevron-left"></i></span>
+            <span class="lightbox-next"><i class="fas fa-chevron-right"></i></span>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h3>About Us</h3>
+                    <p>Milky Way Galaxy Star PG provides premium accommodation solutions for students and working professionals with all modern amenities.</p>
+                </div>
+                <div class="footer-section links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="rooms.html">Rooms</a></li>
+                        <li><a href="amenities.html">Amenities</a></li>
+                        <li><a href="food-plans.html">Food Plans</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 PG Road, City Name, State - PIN</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@milkywaypg.com</p>
+                </div>
+                <div class="footer-section social">
+                    <h3>Follow Us</h3>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Milky Way Galaxy Star PG. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Gallery Filtering
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const galleryItems = document.querySelectorAll('.gallery-item');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons and add to current
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.getAttribute('data-filter');
+
+                    galleryItems.forEach(item => {
+                        const category = item.getAttribute('data-category');
+                        
+                        if (filter === 'all' || filter === category) {
+                            item.style.display = 'block';
+                        } else {
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Lightbox Functionality
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxCaption = document.getElementById('lightbox-caption');
+            const closeLightbox = document.querySelector('.close-lightbox');
+            const lightboxPrev = document.querySelector('.lightbox-prev');
+            const lightboxNext = document.querySelector('.lightbox-next');
+            let currentImgIndex = 0;
+            let visibleImages = [];
+
+            // Function to update visible images array
+            function updateVisibleImages() {
+                visibleImages = [];
+                galleryItems.forEach((item, index) => {
+                    if (item.style.display !== 'none') {
+                        visibleImages.push({
+                            index: index,
+                            src: item.querySelector('img').src,
+                            title: item.querySelector('.gallery-item-title').innerText,
+                            category: item.querySelector('.gallery-item-category').innerText
+                        });
+                    }
+                });
+            }
+
+            // Function to open lightbox
+            function openLightbox(index) {
+                updateVisibleImages();
+                if (visibleImages.length === 0) return;
+
+                const imgInfo = visibleImages.find(img => img.index === index) || visibleImages[0];
+                currentImgIndex = visibleImages.findIndex(img => img.index === index);
+                
+                if (currentImgIndex === -1) currentImgIndex = 0;
+                
+                lightboxImg.src = imgInfo.src;
+                lightboxCaption.innerText = `${imgInfo.title} - ${imgInfo.category}`;
+                lightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            // Open lightbox when clicking on gallery item
+            galleryItems.forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    openLightbox(index);
+                });
+            });
+
+            // Close lightbox
+            closeLightbox.addEventListener('click', function() {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Close lightbox when clicking outside the image
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Navigate to previous image
+            lightboxPrev.addEventListener('click', function() {
+                currentImgIndex = (currentImgIndex - 1 + visibleImages.length) % visibleImages.length;
+                lightboxImg.src = visibleImages[currentImgIndex].src;
+                lightboxCaption.innerText = `${visibleImages[currentImgIndex].title} - ${visibleImages[currentImgIndex].category}`;
+            });
+
+            // Navigate to next image
+            lightboxNext.addEventListener('click', function() {
+                currentImgIndex = (currentImgIndex + 1) % visibleImages.length;
+                lightboxImg.src = visibleImages[currentImgIndex].src;
+                lightboxCaption.innerText = `${visibleImages[currentImgIndex].title} - ${visibleImages[currentImgIndex].category}`;
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'ArrowLeft') {
+                    lightboxPrev.click();
+                } else if (e.key === 'ArrowRight') {
+                    lightboxNext.click();
+                } else if (e.key === 'Escape') {
+                    closeLightbox.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
